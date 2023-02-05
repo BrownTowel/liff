@@ -1,60 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="index.css" />
-    <title>LIFF Starter</title>
-  </head>
-  <body>
-    <div class="home">
-      <h1 class="home__title">
-        Welcome to <br /><a
-          class="home__title__link"
-          href="https://developers.line.biz/en/docs/liff/overview/"
-          >LIFF Starter!</a
-        >
-      </h1>
-      <div class="home__badges">
-        <span class="home__badges__badge badge--primary"> LIFF Starter </span>
-        <span class="home__badges__badge badge--secondary"> vanilla </span>
-        <span class="home__badges__badge badge--tertiary"> 0.1.0 </span>
-        <a
-          href="https://github.com/line/line-liff-v2-starter"
-          target="_blank"
-          rel="noreferrer"
-          class="home__badges__badge badge--secondary"
-        >
-          GitHub
-        </a>
-      </div>
-      <div class="home__buttons">
-        <a
-          href="https://developers.line.biz/en/docs/liff/developing-liff-apps/"
-          target="_blank"
-          rel="noreferrer"
-          class="home__buttons__button button--primary"
-        >
-          LIFF Documentation
-        </a>
-        <a
-          href="https://liff-playground.netlify.app/"
-          target="_blank"
-          rel="noreferrer"
-          class="home__buttons__button button--tertiary"
-        >
-          LIFF Playground
-        </a>
-        <a
-          href="https://developers.line.biz/console/"
-          target="_blank"
-          rel="noreferrer"
-          class="home__buttons__button button--secondary"
-        >
-          LINE Developers Console
-        </a>
-      </div>
-    </div>
-  </body>
+<html lang="ja">
+  <head prefix="og:http://ogp.me/ns#">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="お勉強同好会出席登録">
+        <meta property="og:type" content="website">
+        <meta property="og:description" content="お勉強同好会出席登録のサンプル">
+        <meta property="og:url" content="https://kenshu-app.github.io/loginForm_202302/">
+        <meta property="og:site_name" content="STUDY CLUB">
+        <meta property="og:image" content="screen_shot.png">
+        <title>Login</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <style>
+            :root {
+                scroll-behavior: smooth;
+                --f: #FFF;
+                --f5: #F5F5F5;
+                --e: #EEE;
+                --e5: #E5E5E5;
+                --d: #DDD;
+                --d5: #D5D5D5;
+                --c: #CCC;
+                --b: #BBB;
+                --a: #AAA;
+                --c9: #999;
+                --c6: #666;
+                --c5: #555;
+                --c4: #444;
+                --c3: #333;
+                --c2: #222;
+                --c1: #111;
+                --c0: #000;
+                --c0a: #00000033;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100vh;
+            }
+
+            body {
+                display: flex;
+                align-items: center;
+                font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+                color: var(--c3);
+                font-size: 1.6rem;
+                line-height: 2;
+                font-feature-settings: "palt";
+                text-size-adjust: 100%;
+                background: linear-gradient(180deg, #f5f5f5, #aaa, #dedede),
+                    repeating-radial-gradient(circle at 0 0, transparent 0, #e5e5f7 6px),
+                    repeating-linear-gradient(#8d8d8d55, #8d8d8d);
+                background-size: 300% 300%;
+                animation: bggradient 15s ease infinite;
+                background-blend-mode: screen;
+            }
+
+            @keyframes bggradient {
+                0% {
+                    background-position: 50% 0%;
+                }
+
+                50% {
+                    background-position: 50% 100%;
+                }
+
+                100% {
+                    background-position: 50% 0%;
+                }
+            }
+
+            .card {
+                position: relative;
+                box-shadow: 0 1px 0 #bbb, 0 2px 0 #b0b0b0, 0 3px 0 #aaa, 0 4px 0 #a0a0a0,
+                    0 5px 0 #888, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1),
+                    0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2),
+                    0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2),
+                    0 20px 20px rgba(0, 0, 0, .15);
+            }
+
+            .card-title {
+                box-shadow: 0 0 .3rem var(--c9);
+                border-top: 2px solid var(--f5);
+                border-bottom: 2px solid var(--f);
+                border-radius: .375rem .375rem 0 0;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 339 178"><path fill="%23f5f5f5" class="cls-1" d="M248.17,47.99C231.16,15.24,194.7-4.66,156.17,1.12c-38.53,5.78-67.55,35.5-74.21,71.8C31.37,86.24-1.76,102.1,.07,114.33c1.83,12.23,38.16,17.68,90.43,15.58,17.01,32.75,53.47,52.65,92,46.87,38.53-5.78,67.55-35.5,74.21-71.8,50.59-13.32,83.72-29.19,81.89-41.42s-38.16-17.68-90.43-15.58ZM82.9,109.37c-14.62-.6-23.58-2.75-24.13-6.45s7.6-8.52,21.75-13.45c.03,4.18,.35,8.4,.99,12.65,.37,2.46,.84,4.87,1.4,7.25Zm172.08-4.03c-23.64,6.23-51.17,11.89-80.73,16.32s-57.55,7.1-81.97,8.08c-3.25-6.26-5.77-12.99-7.45-20.11,20.28,.83,51.69-1.38,86.62-6.62,34.93-5.24,65.61-12.34,84.75-19.08,.49,7.3,.05,14.48-1.22,21.41Zm2.99-22.22c-.16-2.43-.42-4.88-.79-7.34-.64-4.25-1.57-8.38-2.77-12.39,14.98,.57,24.18,2.72,24.74,6.48s-7.38,8.39-21.18,13.25Z"/></svg>') -6em -1.5em no-repeat,
+                    linear-gradient(var(--e5), var(--f5));
+            }
+
+            .logo {
+                filter: drop-shadow(0 .1em .2rem var(--c9));
+            }
+
+            .display-6 {
+                font-size: 1rem;
+                line-height: 1.6;
+                letter-spacing: .5em;
+            }
+
+            .display-6 strong {
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+
+            .card-body {
+                font-size: 1rem;
+                letter-spacing: .2em;
+                color: var(--c6);
+            }
+
+            @media screen and (min-width: 601px) {
+                .card-title {
+                    padding: 0 3vw;
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                .card {
+                    width: 90vw;
+                    margin: 0 1vw;
+                }
+
+                .card-body br {
+                    display: none;
+                }
+            }
+
+            maker {
+                background: linear-gradient(transparent 50%, #ee6 30%);
+            }
+
+            .form-signin {
+                width: 100%;
+                padding: 0 1.2rem;
+            }
+
+            .form-control {
+                height: 3.125rem;
+                padding: .75rem;
+                margin-bottom: 0;
+                font-family: FontAwesome;
+                text-align: center;
+                letter-spacing: .3em;
+            }
+
+            .bg-check {
+                background-color: var(--c3) !important;
+            }
+
+            .bg-check .form-check-label {
+                color: var(--c);
+            }
+
+            .input-group-text {
+                background-color: #e0e3e6;
+            }
+
+            .disabled::placeholder {
+                text-align: left;
+            }
+
+            .form-check-label,
+            .disabled::placeholder {
+                font-size: .8rem;
+                font-weight: bold;
+                color: var(--c9);
+            }
+
+            .form-check-input:checked {
+                background-color: var(--c3);
+                border-color: var(--c3);
+            }
+
+            .btn-primary {
+                color: var(--f5);
+                background-color: var(--c3);
+                border: 1px solid var(--c2);
+                border-radius: .3rem;
+                cursor: pointer;
+                height: 2rem;
+                font-size: 1.6rem;
+                font-weight: bold;
+                box-shadow: 0 0 .3rem var(--c9);
+                background-position: center;
+                transition: .8s;
+                letter-spacing: .5em;
+                text-indent: .5em;
+                text-shadow: 0 0 .3rem var(--c0), 0 0 .5rem var(--c3);
+            }
+
+            .btn-primary:hover {
+                background: var(--c) radial-gradient(circle, transparent 1%, var(--c) 1%) center/15000%;
+                border-color: var(--c2);
+                color: var(--c3);
+                box-shadow: inset 0 0 .3rem var(--c3);
+                text-shadow: 0 .05rem .3rem var(--c6);
+            }
+
+            .btn-primary:active {
+                background-color: var(--c3);
+                background-size: 100%;
+                transition: 0s;
+            }
+
+            .btn-check:checked+.btn,
+            .btn.active,
+            .btn.show,
+            .btn:first-child:active,
+            :not(.btn-check)+.btn:active {
+                color: var(--e);
+                background-color: var(--c9);
+                border-color: var(--c6);
+            }
+
+            .limit {
+                background-color: var(--c5);
+                border: 1px solid var(--c4);
+                color: var(--c9);
+                font-size: 1rem;
+                font-weight: bold;
+                letter-spacing: .15rem;
+                border-radius: .375rem 0 0 .375rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .limit .fa {
+                font-size: 1rem;
+                vertical-align: baseline;
+            }
+
+            .limit strong {
+                display: inline-block;
+                padding-left: .1em;
+                background-color: var(--c);
+                font-size: 1.2rem;
+                text-align: center;
+                color: var(--c4);
+                width: 1.2rem;
+                height: 1.2rem;
+                border-radius: 100%;
+            }
+
+            .fa-stack {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .fa-arrow-circle-right {
+                margin-left: .4rem;
+            }
+
+            .credit {
+                font-size: .8rem;
+                letter-spacing: .3em;
+                color: var(--a);
+            }
+
+            .dots {
+                position: absolute;
+                top: 4%;
+                right: 14%;
+                list-style-type: none;
+            }
+
+            .dots>li {
+                animation: dots ease-in-out 2s infinite;
+                height: .6rem;
+                width: .6rem;
+                border-radius: 100%;
+                background-color: var(--c0a);
+                position: absolute;
+            }
+
+            @keyframes dots {
+                15% {
+                    transform: translateX(0);
+                }
+
+                45% {
+                    transform: translateX(30px);
+                }
+
+                65% {
+                    transform: translateX(30px);
+                }
+
+                95% {
+                    transform: translateX(0);
+                }
+            }
+
+            .dots li:first-child {
+                animation-delay: .6s;
+            }
+
+            .dots li:nth-child(2) {
+                animation-delay: .4s;
+            }
+
+            .dots li:nth-child(3) {
+                animation-delay: .2s;
+            }
+
+        </style>
+    </head>
+    <body>
+      <div id="liff"></div>
+      <div id="catch" style="color:red;"></div>
+      <main class="card mx-auto animate__animated animate__bounce">
+            <ul class="dots">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <div class="card-title text-center pt-4 mb-4 bg-light">
+                <svg class="logo mt-5 mb-4 animate__animated animate__fadeInUp" style="animation-delay:.7s" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="56px" viewBox="0 0 300 56" enable-background="new 0 0 300 56" xml:space="preserve">
+                    <g>
+                        <path d="M113.767,5.075v6.152c-1.92-1.374-3.647-2.061-5.183-2.061c-1.656,0-3.011,0.586-4.061,1.758
+		c-1.051,1.111-1.576,2.596-1.576,4.455c0,1.637,0.374,3.041,1.121,4.213c0.384,0.626,1.016,1.435,1.895,2.425
+		c0.879,0.989,2.016,2.182,3.409,3.576c2.565,2.606,4.314,4.859,5.243,6.759c0.93,1.838,1.395,4.091,1.395,6.758
+		c0,3.617-1.021,6.598-3.062,8.941c-2.041,2.283-4.657,3.425-7.85,3.425c-2.687,0-4.98-0.738-6.88-2.213v-6.243
+		c2.243,1.637,4.284,2.455,6.122,2.455c1.718,0,3.062-0.571,4.031-1.713s1.455-2.692,1.455-4.652c0-1.697-0.374-3.223-1.121-4.576
+		c-0.385-0.646-0.92-1.389-1.606-2.228c-0.688-0.839-1.546-1.773-2.576-2.804c-1.597-1.576-2.921-2.97-3.971-4.183
+		c-1.051-1.212-1.829-2.272-2.334-3.182c-0.97-1.778-1.454-4.021-1.454-6.729c0-3.657,0.949-6.557,2.849-8.698
+		c1.92-2.162,4.496-3.243,7.729-3.243C109.585,3.469,111.726,4.004,113.767,5.075z" />
+                        <path d="M115.977,4.105h20.518v5.516h-7.062V50.9h-6.183V9.621h-7.273V4.105z" />
+                        <path d="M138.551,4.105h6.183v33.065c0,3.374,0.303,5.617,0.909,6.729c0.626,1.111,1.858,1.667,3.697,1.667
+		s3.051-0.485,3.638-1.455c0.606-0.99,0.909-3,0.909-6.031V4.105h6.184V38.08c0,5.092-0.778,8.537-2.334,10.335
+		c-1.859,2.041-4.698,3.062-8.518,3.062c-4.202,0-7.163-1.313-8.88-3.94c-1.192-1.798-1.788-5.253-1.788-10.365V4.105z" />
+                        <path d="M163.628,4.105h7.759c2.364,0,4.354,0.263,5.971,0.788c1.495,0.505,2.829,1.404,4.001,2.697
+		c1.758,1.939,3.01,4.465,3.758,7.577c0.747,3.01,1.121,7.324,1.121,12.941c0,5.152-0.414,9.354-1.242,12.607
+		c-0.809,3.111-2.142,5.485-4.001,7.122c-2.283,2.041-6.375,3.062-12.274,3.062h-5.092V4.105z M169.932,45.385
+		c3.839,0,6.405-1.162,7.698-3.485c1.334-2.324,2.001-6.84,2.001-13.548c0-7.213-0.637-12.174-1.91-14.881
+		c-1.272-2.708-3.606-4.062-7.001-4.062h-0.788V45.385z" />
+                        <path d="M183.354,4.105h6.667l3.092,10.184c0.101,0.303,0.202,0.636,0.303,1c0.102,0.363,0.223,0.758,0.364,1.182
+		c1.151,3.678,1.939,6.769,2.363,9.274c0.364-2.506,0.667-4.253,0.91-5.243l0.97-4.183l0.363-1.637l2.606-10.577h6.577
+		l-8.153,26.671V50.9h-6.304V30.776L183.354,4.105z" />
+                        <path d="M235.234,4.863v5.667c-1.616-0.788-2.97-1.182-4.061-1.182c-1.495,0-2.778,0.369-3.85,1.106
+		c-1.07,0.737-1.954,1.874-2.651,3.409c-0.697,1.536-1.213,3.48-1.546,5.834c-0.333,2.354-0.5,5.138-0.5,8.351
+		c0,11.557,2.96,17.336,8.88,17.336c1.03,0,2.273-0.323,3.728-0.971v5.789c-1.515,0.849-3.212,1.273-5.091,1.273
+		c-9.477,0-14.215-7.739-14.215-23.216c0-8.365,1.157-14.588,3.471-18.67c2.313-4.081,5.854-6.122,10.622-6.122
+		C231.779,3.469,233.518,3.934,235.234,4.863z" />
+                        <path d="M238.147,4.105h6.304v41.461h10.305V50.9h-16.608V4.105z" />
+                        <path d="M255.648,4.105h6.183v33.065c0,3.374,0.303,5.617,0.909,6.729c0.626,1.111,1.858,1.667,3.697,1.667
+		s3.051-0.485,3.637-1.455c0.606-0.99,0.909-3,0.909-6.031V4.105h6.183V38.08c0,5.092-0.777,8.537-2.333,10.335
+		c-1.859,2.041-4.698,3.062-8.517,3.062c-4.203,0-7.163-1.313-8.88-3.94c-1.192-1.798-1.788-5.253-1.788-10.365V4.105z" />
+                        <path d="M280.725,4.105h8.547c6.688,0,10.031,4.152,10.031,12.456c0,3.173-0.434,5.526-1.303,7.062
+		c-0.869,1.536-2.404,2.698-4.606,3.485c2.525,1.011,4.253,2.304,5.183,3.88c0.949,1.556,1.424,3.899,1.424,7.031
+		c0,8.587-3.677,12.881-11.032,12.881h-8.243V4.105z M286.665,24.715c2.444,0,4.142-0.566,5.092-1.697
+		c0.949-1.192,1.424-3.283,1.424-6.274c0-5.051-1.818-7.576-5.455-7.576h-0.485h-0.272c-0.161,0-0.263,0.01-0.303,0.03V24.715z
+		 M286.665,45.506c2.586,0,4.374-0.556,5.364-1.667s1.485-3.122,1.485-6.031c0-2.99-0.516-5.082-1.546-6.273
+		c-1.011-1.213-2.778-1.819-5.304-1.819V45.506z" />
+                    </g>
+                    <path d="M72.034,49.136V0.269H5.175v48.867H0V56h78.244v-6.864H72.034z M44.511,46.183v2.953H32.698v-2.953H44.511z M12.039,7.134
+	H65.17v32.184H12.039V7.134z" />
+                </svg>
+                <h1 class="display-6 mb-2 animate__animated animate__fadeInUp" style="animation-delay:.9s">お勉強同好会<strong>出席登録</strong></h1>
+                <p class="card-body animate__animated animate__fadeInUp" style="animation-delay:1.1s">EBAメールの<maker>@マークより前の<strong>ユーザー名</strong></maker>を入力、<br><maker><strong>出席日</strong>にチェック</maker>を行い、<br>期限までに登録ボタンを押してください。</p>
+            </div>
+            <form action="javascript:void(0)" class="form-signin" novalidate>
+                <div class="input-group mb-3 animate__animated animate__fadeInUp" style="animation-delay:1.25s">
+                    <input class="form-control py-2" type="text" placeholder="&#xf2c3; s.ebata" required autofocus>
+                </div>
+                <div class="input-group mb-3 animate__animated animate__fadeInUp" style="animation-delay:1.45s">
+                    <span class="input-group-text bg-check">
+                        <div class="form-check form-check-reverse">
+                            <input class="form-check-input" type="checkbox" id="asyncCheckingBox1" value="">
+                            <label class="form-check-label" for="asyncCheckingBox1">出 席</label>
+                        </div>
+                    </span>
+                    <input class="form-control py-2 disabled" placeholder="3月11日第2土曜日" disabled>
+                </div>
+                <div class="input-group mb-3 animate__animated animate__fadeInUp" style="animation-delay:1.65s">
+                    <span class="input-group-text bg-check">
+                        <div class="form-check form-check-reverse">
+                            <input class="form-check-input" type="checkbox" id="asyncCheckingBox2" value="">
+                            <label class="form-check-label" for="asyncCheckingBox2">出 席</label>
+                        </div>
+                    </span>
+                    <input class="form-control py-2 disabled" placeholder="3月25日第4土曜日" disabled>
+                    <span class="input-group-text">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="asyncCheckingSwitch">
+                            <label class="form-check-label" for="asyncCheckingSwitch">研修室</label>
+                        </div>
+                    </span>
+                </div>
+                <div class="d-flex btn-group row my-3 mx-1 animate__animated animate__fadeInUp" style="animation-delay:1.85s">
+                    <label class="limit col-4"><div class="badge"><i class="fa fa-clock-o"></i> 期限:<strong>2</strong>月末</div></label>
+                    <button class="btn btn-primary btn-lg pb-5 col-8" type="submit">登録 <span class="fa-stack">
+                            <i class="fa fa-circle-o fa-stack-2x"></i>
+                            <i class="fa fa-arrow-circle-right fa-stack-1x"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+            <small class="credit text-center my-4 animate__animated animate__fadeInUp" style="animation-delay:2.1s">&copy; Study Club</small>
+        </main>
+    </body>
 </html>
+
